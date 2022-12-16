@@ -1,9 +1,27 @@
-version: 2
+version: 2.1
+
+workflows:
+  version: 2.1
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+          context:
+            - "github"
+            - "Docker Hub"
+
 jobs:
   build:
     machine: true
     steps:
       - checkout
+
+      - run:
+          name: Run Docker login
+          command: |
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
       - run:
           name: Run Shellcheck
@@ -41,19 +59,9 @@ jobs:
           name: Deploy
           command: |
             if [ "$CIRCLE_TAG" != "" ]; then
-              curl -sSL https://github.com/tcnksm/ghr/releases/download/v0.5.4/ghr_v0.5.4_linux_amd64.zip -o ghr.zip
-              unzip ghr.zip
+              go install github.com/tcnksm/ghr@latest
               if [[ $CIRCLE_TAG = *"rc"* ]]; then
                 pre=-prerelease
               fi
-              ./ghr $pre -u hypriot $CIRCLE_TAG output/
+              ghr $pre -u $GITHUB_USER $CIRCLE_TAG output/
             fi
-
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-      - build:
-          filters:
-            tags:
-              only: /.*/

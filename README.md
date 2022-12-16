@@ -1,8 +1,9 @@
-# os-rootfs
-[![Join the chat at https://gitter.im/hypriot/talk](https://badges.gitter.im/hypriot/talk.svg)](https://gitter.im/hypriot/talk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![CircleCI](https://circleci.com/gh/hypriot/os-rootfs.svg?style=svg)](https://circleci.com/gh/hypriot/os-rootfs)
+# hypriot-os-rootfs
 
-The `os-rootfs` builds the base of all the HypriotOS images. This repo creates a general root filesystem for different CPU architectures without the board specific parts.
+[![CircleCI](https://circleci.com/gh/barthel/hypriot-os-rootfs.svg?style=svg)](https://circleci.com/gh/barthel/hypriot-os-rootfs)
+
+The `hypriot-os-rootfs` builds the base of all the HypriotOS images.
+This repo creates a general root filesystem for different CPU architectures without the board specific parts.
 
 This root filesystem
 
@@ -12,14 +13,10 @@ This root filesystem
 * sets a default timezone (UTC)
 * ...
 
-
-Here is an example how all the GitHub repos play together:
-
-![Architecture](http://blog.hypriot.com/images/hypriotos-xxx/hypriotos_buildpipeline.jpg)
-
 ## Contributing
 
-You can contribute to this repo by forking it and sending us pull requests. Feedback is always welcome!
+You can contribute to this repo by forking it and sending us pull requests.
+Feedback is always welcome!
 
 You can build the root filesystem locally with Docker.
 
