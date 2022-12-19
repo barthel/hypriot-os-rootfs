@@ -18,8 +18,8 @@ HYPRIOT_HOSTNAME="${HYPRIOT_HOSTNAME:-black-pearl}"
 # - Debian i386  = Intel/AMD 32-bit
 # - Debian amd64 = Intel/AMD 64-bit
 BUILD_ARCH="${BUILD_ARCH:-arm64}"
-QEMU_ARCH="${QEMU_ARCH}"
 VARIANT="${VARIANT:-debian}"
+DEBIAN_VERSION="${DEBIAN_VERSION:-buster}"
 HYPRIOT_OS_VERSION="${HYPRIOT_OS_VERSION:-dirty}"
 ROOTFS_DIR="/debian-${BUILD_ARCH}"
 DEBOOTSTRAP_URL="http://ftp.debian.org/debian"
@@ -38,8 +38,8 @@ if [[ "${VARIANT}" = "raspbian" ]]; then
 
 fi
 
-# show TRAVIS_TAG in travis builds
-echo TRAVIS_TAG="${TRAVIS_TAG}"
+# show CIRCLE_TAG in builds
+echo CIRCLE_TAG="${CIRCLE_TAG}"
 
 # cleanup
 mkdir -p /workspace
@@ -55,13 +55,13 @@ else
   update-binfmts --enable "qemu-${QEMU_ARCH}"
 fi
 
-# debootstrap a minimal Debian Buster rootfs
+# debootstrap a minimal Debian rootfs
 ${DEBOOTSTRAP_CMD} \
   ${DEBOOTSTRAP_KEYRING_OPTION} \
   --arch="${BUILD_ARCH}" \
   --include="${DEFAULT_PACKAGES_INCLUDE}" \
   --exclude="${DEFAULT_PACKAGES_EXCLUDE}" \
-  buster \
+  "${DEBIAN_VERSION}" \
   "${ROOTFS_DIR}" \
   "${DEBOOTSTRAP_URL}"
 
