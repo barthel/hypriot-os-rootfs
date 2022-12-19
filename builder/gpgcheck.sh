@@ -19,16 +19,16 @@ function clean_print(){
     echo "${KEYID_short}"
   elif [[ "${func}" == "print" ]]; then
     if [[ "${fingerprint}" != "${nospaces}" ]]; then
-      printf "%-10s %50s\n" fpr: "${fingerprint}"
+      printf "%-10s %50s\\n" fpr: "${fingerprint}"
     fi
     # if [[ "${nospaces}" != "${tolowercase}" ]]; then
-    #   printf "%-10s %50s\n" nospaces: $nospaces
+    #   printf "%-10s %50s\\n" nospaces: $nospaces
     # fi
     if [[ "${tolowercase}" != "${KEYID_long}" ]]; then
-      printf "%-10s %50s\n" lower: "${tolowercase}"
+      printf "%-10s %50s\\n" lower: "${tolowercase}"
     fi
-    printf "%-10s %50s\n" long: "${KEYID_long}"
-    printf "%-10s %50s\n" short: "${KEYID_short}"
+    printf "%-10s %50s\\n" long: "${KEYID_long}"
+    printf "%-10s %50s\\n" short: "${KEYID_short}"
     echo ""
   else
     echo "usage: function {print|fpr|long|short} GPGKEY"
