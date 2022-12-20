@@ -3,6 +3,7 @@ DEFAULT_OPTS=-e HYPRIOT_HOSTNAME -e HYPRIOT_GROUPNAME -e HYPRIOT_USERNAME -e HYP
 default: build
 
 build:
+	shellcheck
 	docker build -t rootfs-builder .
 
 all: build amd64 i386 arm64-debian armhf-debian mips armhf-raspbian
