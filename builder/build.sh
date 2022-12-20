@@ -95,10 +95,10 @@ chroot "$ROOTFS_DIR" \
        /bin/bash < /builder/chroot-script.sh
 
 # unmount pseudo filesystems
-umount -l "$ROOTFS_DIR/dev/pts"
-umount -l "$ROOTFS_DIR/dev"
-umount -l "$ROOTFS_DIR/proc"
-umount -l "$ROOTFS_DIR/sys"
+umount -lqn "$ROOTFS_DIR/dev/pts" || /bin/true
+umount -lqn "$ROOTFS_DIR/dev" || /bin/true
+umount -lqn "$ROOTFS_DIR/proc" || /bin/true
+umount -lqn "$ROOTFS_DIR/sys" || /bin/true
 
 # ensure that there are no leftover artifacts in the pseudo filesystems
 rm -rf "$ROOTFS_DIR/{dev,sys,proc}/*"
@@ -108,7 +108,7 @@ umask 0000
 
 pushd /workspace
 ARCHIVE_NAME="rootfs-${BUILD_ARCH}-${VARIANT}-${HYPRIOT_OS_VERSION}.tar.gz"
-tar -czf "${ARCHIVE_NAME}" -C "${ROOTFS_DIR}/" .
+tar --exclude={dev,sys,proc} -czf "${ARCHIVE_NAME}" -C "${ROOTFS_DIR}/" .
 sha256sum "${ARCHIVE_NAME}" > "${ARCHIVE_NAME}.sha256"
 popd
 
