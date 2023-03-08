@@ -1,4 +1,4 @@
-FROM uwebarthel/hypriot-image-builder:latest
+FROM uwebarthel/hypriot-image-builder:v1.1
 
 RUN apt-get update && apt-get install -y \
     binfmt-support \
